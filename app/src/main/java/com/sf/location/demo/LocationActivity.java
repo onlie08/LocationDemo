@@ -66,9 +66,10 @@ public class LocationActivity extends Activity implements SfMapLocationListener 
         if(location!=null&&location.getErrorCode()!=0){
             //定位发生异常
             Log.e("LocationChangeError", "Location error code：" + location.getErrorCode());
+            tvLocation.setText("LocationChangeError:"+ location.getErrorCode()+"time:"+location.getTime());
             return ;
         }
-        tvLocation.setText("定位结果 lat:"+ location.getLatitude() + " lon:" + location.getLongitude());
+        tvLocation.setText("定位结果 "+location.getTime()+" lat:"+ location.getLatitude() + " lon:" + location.getLongitude());
     }
 
     public void startLocation() {
@@ -79,7 +80,8 @@ public class LocationActivity extends Activity implements SfMapLocationListener 
             locationOption.setLocationMode(SfMapLocationClientOption.SfMapLocationMode.High_Accuracy);
             // 设置定位间隔为2秒
             locationOption.setInterval(2 * 1000);
-            locationOption.setNeedAddress(true);
+            locationOption.setNeedAddress(false);
+            locationOption.setUseGjc02(false);
             // 设置定位监听
             locationClient.setLocationListener(this);
             locationClient.setLocationOption(locationOption);
